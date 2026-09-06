@@ -3,8 +3,10 @@ package sessao1;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Empresa {
 
+    private static int proximoId = 1;
     public static void main(String[] args) {
         
         boolean loop = true;
@@ -26,78 +28,107 @@ public class Empresa {
 
             switch (opcao) {
                 case 1:
-                adicionarFuncionario(sc,funcionarios);    
-                    break;
+                    adicionarFuncionario(sc,funcionarios);    
+                break;
                 
-                    case 2:
-                removerFuncionario(sc,funcionarios);    
-                    break;
-                
-                    case 3:
-                buscarFuncionario(sc,funcionarios);    
-                    break;
-                
-                    case 4:
-                listarFuncionario(funcionarios);    
-                    break;
-                
-                    case 5:
-                calcularFolhaSalarial(funcionarios);   
-                    break;
-                
-                    case 6:
+                case 2:
+                    removerFuncionario(sc,funcionarios);    
+                break;
+
+                case 3:
+                    buscarFuncionario(sc,funcionarios);    
+                break;
+
+                case 4:
+                    listarFuncionario(funcionarios);    
+                break;
+
+                case 5:
+                    calcularFolhaSalarial(funcionarios);   
+                break;
+
+                case 6:
                 System.out.println("Saindo");   
-                loop = false;
+                    loop = false;
+                break;
             
                 default:
-                System.out.println("Opção inválida.");
-                    break;
+                    System.out.println("Opção inválida.");
+                break;
             }
         }
     }
 
 public static void adicionarFuncionario(Scanner sc, ArrayList<Funcionario> funcionarios){
     
+    int id = proximoId++;
+    
     System.out.println("Digite o nome completo:");
         String nome =  sc.nextLine();
-
+    
     System.out.println("Digite o cpf completo:");
         String cpf =  sc.nextLine();
-
-    System.out.println("Digite o salário base. ref: Gerente = R$ 5000, Vendendor = R$ 3500, Desenvolvedor R$ 4200:");
+    
+    System.out.println("Digite o telefone completo:");
+        String telefone =  sc.nextLine();
+    
+    System.out.println("Digite o email completo:");
+        String email =  sc.nextLine();
+    
+    System.out.println("Digite o cargo:");
+    System.out.println("Opções:");
+    System.out.println(" Gerente, Desenvolvedor, Vendedor:");
+    
+    String cargo =  sc.nextLine();
         
-        int salarioBase =  sc.nextInt();
-        sc.nextLine();// limpa o enter
+        Funcionario novoFuncionario = null;
 
-    // após o cadastro se inicia o ArrayList
-    Funcionario novoFuncionario = null;
+        if(cargo.equalsIgnoreCase("Gerente")){
+            System.out.println("Digite o salário ref: Gerente");
+                double salario =  sc.nextDouble();
+                sc.nextLine();// limpa o enter
+                
+            System.out.println("Data da admição:");
+                String dataAdmicao = sc.nextLine();
+                
+            boolean ativo = true;
+            boolean gerenciar = true;
+            boolean contratar = true;
+            boolean demitir = true;
 
-    if(salarioBase == 5000){
-        
-        novoFuncionario = new Gerente(nome,cpf,salarioBase);
+            novoFuncionario = new Gerente(id,nome,cpf,telefone,email,cargo,salario, dataAdmicao,ativo,gerenciar,contratar, demitir);
+            System.out.println("Gerente cadastrado");    
 
-        System.out.println("Gerente cadastrado.");
-    } 
-    else if (salarioBase == 3500) {
+        } 
+        else if(cargo.equalsIgnoreCase("Desenvolvedor")){
+
+            System.out.println("Digite o salário ref: Desenvolvedor");
+                    double salario =  sc.nextDouble();
+                    sc.nextLine();// limpa o enter
+                
+                System.out.println("Data da admição:");
+                    String dataAdmicao = sc.nextLine();
+                
+                boolean ativo = true;
+                boolean desenvolver = true;
+                boolean manutencao = true;
+
+                novoFuncionario = new Desenvolvedor(id,nome,cpf,telefone,email,cargo,salario, dataAdmicao,ativo,desenvolver,manutencao);
+        } 
+        else if (cargo.equalsIgnoreCase("Vendedor")) {
         
         double valorVendas = 0;
         
         double percentualComissao = 0;
 
-        novoFuncionario = new Vendedor(nome, cpf, salarioBase,valorVendas,percentualComissao);
+        novoFuncionario = new Vendedor(nome, cpf, salario,valorVendas,percentualComissao);
 
         System.out.println("Vendedor cadastrado.");
-    } 
-    else if (salarioBase == 4200){
-
-        novoFuncionario = new Desenvolvedor(nome, cpf, salarioBase);
-        
-        System.out.println("Desenvolvedor cadastrado.");
-    }
-    else {
-
-        System.out.println("Salário inválido! Funcionário não categorizado.");
-    }
+        } 
+        else {
+        System.out.println("Cargo inválido. tente novamente");
+        return;
+        }
 
     // adicionado ao Array
     funcionarios.add(novoFuncionario);
@@ -162,10 +193,10 @@ public static void calcularFolhaSalarial(ArrayList<Funcionario> funcionarios){
     System.out.println("Sergue a lista de funcionarios e seus salarios.");
     
     for(Funcionario f : funcionarios) {
-    System.out.println(f.getNome() + ": R$ " + f.getSalarioBase());
+    System.out.println(f.getNome() + ": R$ " + f.getSalario());
         
     // Somando o salário atual ao total
-    totalFolha += f.getSalarioBase();
+    totalFolha += f.getSalario();
     }
     }   
 }

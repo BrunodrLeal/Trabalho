@@ -88,8 +88,8 @@ abstract class Funcionario {
     }
     // Verificação se a data de admição é válida
     public void setDataAdmicao (String dataAdmicao) {
-        this.dataAdmissao = dataAdmissao;
-    } 
+        this.dataAdmissao = dataAdmissao;   
+     } 
     // Verificação se o funcionario está ativo
     public void setAtivo(boolean ativo){
         if(ativo = true){
