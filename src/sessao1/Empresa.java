@@ -1,5 +1,6 @@
 package sessao1;
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Empresa {
@@ -10,7 +11,7 @@ public class Empresa {
         Scanner sc = new Scanner(System.in);
         ArrayList<Funcionario> funcionarios = new ArrayList<>();
         
-        while(loop = true){
+        while(loop){
             System.out.println("\n======= Menu Mattos Calçados ===== ");
             System.out.println("1 - Adicionar Funcionario");
             System.out.println("2 - Remover Funcionario");

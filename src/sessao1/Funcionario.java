@@ -1,24 +1,25 @@
 package sessao1;
 
-import java.time.LocalDate;
+
 
 //Classe Abstrata - Classe Pai
 abstract class Funcionario {
 
     // Atributos básicos de um funcionario. 
-    private int id;
+    private static int Id = 1;
     private String nome;
     private String cpf;
     private String telefone;
     private String email;
     private String cargo;
     private double salario;
-    private LocalDate dataAdmissao;
+    private String dataAdmissao;
     private boolean ativo;
 
     // constructor com todas as funções para as classes filhas
-    public Funcionario(int id, String nome, String cpf, String telefone, String email, String cargo, double salario, LocalDate dataAdmicao, boolean ativo){
-        this.id = id;
+    public Funcionario(int Id, String nome, String cpf, String telefone, 
+    String email, String cargo, double salario, String dataAdmicao, boolean ativo){
+        this.Id = Id;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -30,11 +31,11 @@ abstract class Funcionario {
     }
 
     // Verificação se o id é válido
-    public void setId (int id) {
-        if(id > 0 ) {
-            this.id = id;
+    public void setId (int Id) {
+        if(Id > 0 ) {
+            this.Id = Id;
         } else {
-            throw new IllegalArgumentException("ID inválido: " + id);
+            throw new IllegalArgumentException("ID inválido: " + Id);
         }
     }
     // Verificação se o nome é válido
@@ -87,13 +88,7 @@ abstract class Funcionario {
     }
     // Verificação se a data de admição é válida
     public void setDataAdmicao (String dataAdmicao) {
-        if (dataAdmissao != null && !dataAdmissao.isAfter(LocalDate.now())) {
         this.dataAdmissao = dataAdmissao;
-        } else {
-        throw new IllegalArgumentException(
-            "Data de admissão inválida: " + dataAdmissao
-        );
-    }
     } 
     // Verificação se o funcionario está ativo
     public void setAtivo(boolean ativo){
@@ -105,7 +100,7 @@ abstract class Funcionario {
     }
     // Retorno id
     public int getId() {
-        return id;
+        return Id;
     }
     // Retorno Nome
     public String getNome(){
@@ -132,7 +127,7 @@ abstract class Funcionario {
         return salario;
     }
     // Retorno Data de admição
-    public LocalDate getDataAdmicao() {
+    public String getDataAdmicao() {
         return dataAdmissao;
     }
     // Retorno Ativo
