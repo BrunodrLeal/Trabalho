@@ -10,7 +10,7 @@ abstract class Desenvolvedor extends Funcionario{
 
     @Override
     public double calcularSalario(){
-        return getSalarioBase() * 1.10;
+        return getSalario() * 1.10;
     }   
     
 }   
