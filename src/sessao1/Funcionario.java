@@ -27,28 +27,71 @@ abstract class Funcionario {
         this.ativo = ativo;
     }
 
-    public void setNome(){
+    // Setters para verificação
+    public void setId (int id) {
+        if(id > 0 ) {
+            this.id = id;
+        } 
+    }
+    public void setNome (String nome){
         if(nome != null && !nome.isEmpty()&& nome.length() >= 3){
             this.nome = nome;
         } else {
             System.out.println("Nome inválido.");
         }
     }
+    public void setCpf (String cpf) {
 
-    public void setSalarioBase() {
-        if(salarioBase >= 1){
-            this.cpf = cpf;
+    }
+    public void setTelefone (String telefone) {
+
+    }
+    public void setEmail (String email) {
+
+    }
+    public void setCargo (String cargo) {
+
+    }
+    public void setSalario(double salario) {
+        if(salario >= 1){
+            this.salario = salario;
         } else {
             System.out.println("Salário inválido.");
         }
     }
+    public void setDataAdmicao (String dataAdmicao) {
 
+    } 
+    public void setAtivo(boolean ativo){
+
+    }
+    // Getters para retorno
+    public int getId() {
+        return id;
+        }
     public String getNome(){
         return nome;
     }
-
-    public double getSalarioBase() {
-        return salarioBase;
+    public String getCpf() {
+        return cpf;
+    }
+    public String getTelefone(){
+        return telefone;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public String getCargo() {
+        return cargo;
+    }
+    public double getSalario() {
+        return salario;
+    }
+    public String getDataAdmicao() {
+        return dataAdmissao;
+    }
+    public boolean getAtivo() {
+        return ativo;
     }
     
     public abstract double calcularsalario();
