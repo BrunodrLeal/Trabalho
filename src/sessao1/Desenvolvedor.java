@@ -1,36 +1,37 @@
 package sessao1;
 public class Desenvolvedor extends Funcionario {
-    private boolean desenvolver;
+    private String linguagem;
     private boolean manutencao;
     
     // Constructor Desenvolvedor
-    public Desenvolvedor(int Id, String nome, String cpf, String telefone, 
-        String email, String cargo, double salario, String dataAdmicao, boolean ativo, boolean desenvolvedor, boolean manutencao){
+    public Desenvolvedor (int Id, String nome, String cpf, String telefone, 
+                         String email, String cargo, double salario, String dataAdmssao, 
+                         boolean ativo, String linguagem, boolean manutencao) {
         
-        super(Id,nome,cpf,telefone,email,cargo,salario,dataAdmicao,ativo);
+        super(Id,nome,cpf,telefone,email,cargo,salario,dataAdmssao,ativo);
 
-        this.desenvolver = desenvolver;
+        this.linguagem = linguagem;
         this.manutencao = manutencao;
     }
     // Método @Override Obrigatório.
     @Override
-    public double calcularSalario(){
+    public double calcularSalario() {
         return getSalario() * 1.10;
     }   
     // Setters sem verificação por hora. 
-    public void setDesenvolver(boolean desenvolver){
-        this.desenvolver = desenvolver;
+    public void setLinguagem(String linguagem) {
+        this.linguagem = linguagem;
     }
-    public void setManutencao(boolean manutencao){
+    public void setManutencao(boolean manutencao) {
         this.manutencao = manutencao;
     }
     
     // return desenvolvedor 
-    public boolean getDesenvolver(){
-        return desenvolver;
+    public String getLinguagem() {
+        return linguagem;
     }
     // return manutencao.
-    public boolean getManutencao(){
+    public boolean getManutencao() {
         return manutencao;
     }
       

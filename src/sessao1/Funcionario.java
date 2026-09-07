@@ -18,7 +18,7 @@ abstract class Funcionario {
 
     // constructor com todas as funções para as classes filhas
     public Funcionario(int Id, String nome, String cpf, String telefone, 
-    String email, String cargo, double salario, String dataAdmicao, boolean ativo){
+    String email, String cargo, double salario, String dataAdmissao, boolean ativo){
         this.Id = Id;
         this.nome = nome;
         this.cpf = cpf;
@@ -26,7 +26,7 @@ abstract class Funcionario {
         this.email = email;
         this.cargo =  cargo;
         this.salario = salario;
-        this.dataAdmissao = dataAdmicao;
+        this.dataAdmissao = dataAdmissao;
         this.ativo = ativo;
     }
 
@@ -87,7 +87,7 @@ abstract class Funcionario {
         }
     }
     // Verificação se a data de admição é válida
-    public void setDataAdmicao (String dataAdmicao) {
+    public void setDataAdmissao (String dataAdmissao) {
         this.dataAdmissao = dataAdmissao;   
      } 
     // Verificação se o funcionario está ativo
@@ -127,7 +127,7 @@ abstract class Funcionario {
         return salario;
     }
     // Retorno Data de admição
-    public String getDataAdmicao() {
+    public String getDataAdmissao() {
         return dataAdmissao;
     }
     // Retorno Ativo
