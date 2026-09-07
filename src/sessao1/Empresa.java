@@ -13,12 +13,12 @@ public class Empresa {
         
         while(loop) {
             System.out.println("\n======= Menu Mattos Calçados =====  ");
-            System.out.println("1 - Adicionar Funcionari o");
-            System.out.println("2 - Remover Funcionario ");
-            System.out.println("3 - Buscar Funcionario ");
-            System.out.println("4 - Listar Funcionario ");
-            System.out.println("5 - Calcular Folha ");
-            System.out.println("6 - SAIR ");
+            System.out.println("1 - Adicionar Funcionario: ");
+            System.out.println("2 - Remover Funcionario: ");
+            System.out.println("3 - Buscar Funcionario: ");
+            System.out.println("4 - Listar Funcionario: ");
+            System.out.println("5 - Calcular Folha: ");
+            System.out.println("6 - SAIR: ");
             System.out.print("Escolha uma opção: ");
 
             int opcao = sc.nextInt();
@@ -62,7 +62,7 @@ public static void adicionarFuncionario (Scanner sc, ArrayList<Funcionario> func
     int id = proximoId++; // adiciona o id para o funcionario
     Funcionario novoFuncionario = null; // Objeto Null para referencia.
 
-     DadosBasicos dadosB = DadosBasicos.cadastroBasico(sc); // dados Basicos 
+    DadosBasicos dadosB = DadosBasicos.cadastroBasico(sc); // dados Basicos 
 
     System.out.println("Digite o cargo, opções: Gerente, Desenvolvedor ou Vendedor? ");
         
@@ -70,94 +70,50 @@ public static void adicionarFuncionario (Scanner sc, ArrayList<Funcionario> func
         
         if (cargo.equalsIgnoreCase("Gerente")) { // opção Gerente.
             
-            Dados ativo = Dados.cadastroDados(sc, cargo);            
+            Dados ativoG = Dados.cadastroDados(sc, cargo);            
             
-            CadastroGerente funcao = CadastroGerente.CadastroG(sc);
+            CadastroGerente funcaoG = CadastroGerente.CadastroG(sc);
 
-            novoFuncionario = new Gerente(id, dadosB.getNome(), dadosB.getCpf(), 
-                    dadosB.getTelefone(),dadosB.getEmail(), cargo, 
-                    ativo.getSalario(), ativo.getDataAdmissao(), ativo.getAtivo(), 
-                    funcao.getContratar(), funcao.getDemitir()); // Criação do objeto com todas as informações
+            novoFuncionario = new Gerente(
+                id,                                                                                     // id gera automático
+                dadosB.getNome(), dadosB.getCpf(), dadosB.getTelefone(),dadosB.getEmail(),              // dados basicos
+                cargo,                                                                                  //Cargo escolhidos pelo usuário antes do if. 
+                ativoG.getSalario(), ativoG.getDataAdmissao(), ativoG.getAtivo(),                       // Situação salarial, data de inicio e atividade.
+                funcaoG.getContratar(), funcaoG.getDemitir());                                          // Funções adquiridas pelo cargo.     
 
             System.out.println("Gerente cadastrado com sucesso, seja bem vindo a Mattos Calçados! ");  //informa o fim do cadastro completo do Gerente.  
             
         } else if (cargo.equalsIgnoreCase("Desenvolvedor")) { // informações pertinentes ao desenvolvedor.
 
-            System.out.println("Digite o salário ref: Desenvolvedor"); // Registra o salario
-                double salario =  sc.nextDouble();
-                sc.nextLine();// limpa o enter
-                
-                System.out.println("Data da admissão: "); // Registra a data de admição
-                    String dataAdmissao = sc.nextLine();
+            Dados ativoD = Dados.cadastroDados(sc, cargo);
 
-                System.out.println("Desenvolvedor ativo: (s) ou (n)? ");// Registra se Desenvolvedor está ativo ou não, outras opções são inválidadas
-                String ativoFuncionario = sc.nextLine();
-                
-                boolean ativo = false; // variavel boleana para registro do if posterior.
+            CadastroDesenvolvedor funcaD = CadastroDesenvolvedor.CadastroD(sc);
 
-                if (ativoFuncionario.equalsIgnoreCase("s")) {
-                    ativo = true; 
-                
-                } else if (ativoFuncionario.equalsIgnoreCase("n")) {
-                    ativo = false;
-                
-                } else {
-                    System.out.println("Opção inválida! ");
-                }
+            novoFuncionario = new Desenvolvedor(            
+                id,                                                                                      // id gera automático
+                dadosB.getNome(), dadosB.getCpf(),dadosB.getTelefone(),dadosB.getEmail(),                // dados basicos
+                cargo,                                                                                   //Cargo escolhidos pelo usuário antes do if.
+                ativoD.getSalario(),ativoD.getDataAdmissao(),ativoD.getAtivo(),                          // Situação salarial, data de inicio e atividade.
+                funcaD.getLinguagem(),funcaD.getManutencao());                                           // Funções adquiridas pelo cargo.             
 
-                System.out.println("Linguagem de programação utilizada ?"); // registra qual linguagem de programação ele atuará
-                String linguagem= sc.nextLine();
-                
-                System.out.println("Funcionario Ativo: (s) ou (n)? ");// Registra se desenvolvedor fará manutenções ou não
-                String manutencaoAtiva = sc.nextLine();
-                
-                boolean manutencao = false;
-                if (manutencaoAtiva.equalsIgnoreCase("s")) {
-                    manutencao = true; 
-                
-                } else if (manutencaoAtiva.equalsIgnoreCase("n")) {
-                    manutencao = false;
-                
-                } else {
-                    System.out.println("Opção inválida! ");
-                }
-
-                novoFuncionario = new Desenvolvedor(id,nome,cpf,telefone,email,cargo,salario, 
-                                                    dataAdmissao,ativo,linguagem,manutencao); // Criação do objeto com todas as informações
-
-                System.out.println("Desenvolvedor cadastrado com sucesso, seja bem vindo a Mattos Calçados! ");  //informa o fim do cadastro completo do Desenvolvedor.
+                System.out.println("Desenvolvedor cadastrado com sucesso, seja bem vindo a Mattos Calçados! "); //informa o fim do cadastro completo do Desenvolvedor.
         
             } else if (cargo.equalsIgnoreCase("Vendedor")) {
 
-                System.out.println("Digite o salário ref: Vendedor: "); // Registra o salario
-                    double salario =  sc.nextDouble();
-                    sc.nextLine();// limpa o enter
-
-                System.out.println("Data da admissão: "); // Registra a data de admição
-                    String dataAdmissao = sc.nextLine();
-            
-                System.out.println("Vendedor Ativo: (s) ou (n)? ");// Registra se vendedor está ativo ou não, outras opções são inválidadas
-                    String ativoFuncionario = sc.nextLine();
+                Dados ativoV = Dados.cadastroDados(sc, cargo);
                 
-                boolean ativo = false; // variavel boleana para registro do if posterior.
-
-                    if (ativoFuncionario.equalsIgnoreCase("s")) {
-                        ativo = true; 
-                
-                    } else if (ativoFuncionario.equalsIgnoreCase("n")) {
-                        ativo = false;
-                
-                    } else {
-                        System.out.println("Opção inválida! ");
-                    } 
-                    
-                System.out.println("Meta de vendas: "); // Registra a meta do vendedor podendo ser alterada depois por outro método que será criado. 
-                double metaVendas = sc.nextDouble();
-
-                System.out.println("Percentual da comissão: "); // Registra o percentual de comissão do vendedor podendo ser alterada depois por outro método que será criado. 
-                double percentualComissao = sc.nextDouble();
+                CadastroVendedor funcaoV = CadastroVendedor.cadastroV(sc);
+            novoFuncionario = new Vendedor(
+                id,                                                                                      // id gera automático
+                dadosB.getNome(), dadosB.getCpf(),dadosB.getTelefone(),dadosB.getEmail(),                // dados basicos   
+                cargo,                                                                                   //Cargo escolhidos pelo usuário antes do if.
+                ativoV.getSalario(),ativoV.getDataAdmissao(),ativoV.getAtivo(),                          // Situação salarial, data de inicio e atividade.
+                funcaoV.getMetaComissao(),funcaoV.getPercentualComissao());                                                          // Funções adquiridas pelo cargo.     
         
-            novoFuncionario = new Vendedor(id,nome,cpf,telefone,email,cargo,salario, dataAdmissao,ativo,metaVendas,percentualComissao);
+            } else {
+            
+            System.out.println("Cargo inválido!");
+
         }
         /*Chegando ao fim adicionando qual tipo de Funcionario seja ao ArrayLIst "funcionarios" usando o polimorfismo. */
         funcionarios.add(novoFuncionario); // adicionado ao Array
@@ -166,16 +122,18 @@ public static void adicionarFuncionario (Scanner sc, ArrayList<Funcionario> func
         
 public static void removerFuncionario(Scanner sc, ArrayList<Funcionario> funcionarios){
     
-    System.out.println("Digite o nome do funcionario? ");
-        String nomeFuncionario = sc.nextLine();
+    System.out.println("Digite o ID do funcionário para o desligamento? ");
+        int nomeFuncionario = sc.nextInt();
+        sc.nextLine();// limpa o enter
 
     Funcionario funcionarioParaRemover = null;
 
     for (Funcionario f : funcionarios) {
-    // 1 Pegando o nome do funcionário e usando equalsIgnoreCase
-        if (f.getNome().equalsIgnoreCase(nomeFuncionario)) { 
-            System.out.println("Nome encontrado: " + f.getNome());
-            funcionarioParaRemover = f; // Guarda o objeto encontrado
+    
+        // 1 Pegando o nome do funcionário e usando equalsIgnoreCase 
+            System.out.println("Id encontrado: " + f.getId() + " Nome: " + f.getNome());
+
+            funcionarios.remove(funcionarioParaRemover); // Guarda o objeto encontrado
             break; // Para o laço imediatamente
     }
     // 2. Corrigido: Remove fora do laço for-each para não dar erro no Java
@@ -200,21 +158,20 @@ public static void buscarFuncionario(Scanner sc, ArrayList<Funcionario> funciona
 
         break; // Para o laço imediatamente
         } 
-        else{
+        else if (f == null) {
+            throw new NullPointerException("Não temos funcionarios ativos no momento");
+        
+        } else {
             System.out.println("Funcionário não encontrado.");
-        }
+        } 
     }
 }
 public static void listarFuncionario(ArrayList<Funcionario> funcionarios){
     
-    if (funcionarios == null || funcionarios.isEmpty()) {
-        System.out.println("Nenhum funcionário cadastrado.");
-        return;
+    for (Funcionario funcionario : funcionarios) {
+        System.out.println(funcionario);
+        System.out.println("----------------------------");
     }
-
-    for(Funcionario f : funcionarios) {
-        System.out.println(f);
-    }   
 }
 public static void calcularFolhaSalarial(ArrayList<Funcionario> funcionarios){
     
@@ -227,36 +184,11 @@ public static void calcularFolhaSalarial(ArrayList<Funcionario> funcionarios){
         
     // Somando o salário atual ao total
     totalFolha += f.getSalario();
-    }
+
+    System.out.println(totalFolha);
+        }
     }  
-public static String[] cadastroBasico1( Scanner sc ) {
 
-    System.out.println("Digite o nome completo: "); // registra o nome
-        String nome =  sc.nextLine();
-       
-    System.out.println("Digite o cpf completo: "); // registra o cpf 
-        String cpf =  sc.nextLine();
-    
-    System.out.println("Digite o telefone completo: "); // registra o telefone
-        String telefone =  sc.nextLine();
-    
-    System.out.println("Digite o email completo: "); // registra o email
-        String email =  sc.nextLine();
-    
-        return new String[]{nome, cpf, telefone, email};
-    }
-
-public static String[] cadastroGerente( Scanner sc ){
-    
-    System.out.println("Digite o salário ref: Gerente" );
-        double salario =  sc.nextDouble();
-        sc.nextLine(); // limpa o enter
-            
-    System.out.println("Data da admissão: "); // registra data de adimição
-        String dataAdmissao = sc.nextLine();
-
-        return new String[] { salario, dataAdmissao };
-    }
 }
 
 

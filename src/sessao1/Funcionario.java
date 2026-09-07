@@ -6,7 +6,7 @@ package sessao1;
 abstract class Funcionario {
 
     // Atributos básicos de um funcionario. 
-    private static int Id = 1;
+    private static int id = 1;
     private String nome;
     private String cpf;
     private String telefone;
@@ -17,9 +17,9 @@ abstract class Funcionario {
     private boolean ativo;
 
     // constructor com todas as funções para as classes filhas
-    public Funcionario(int Id, String nome, String cpf, String telefone, 
+    public Funcionario(int id, String nome, String cpf, String telefone, 
     String email, String cargo, double salario, String dataAdmissao, boolean ativo){
-        this.Id = Id;
+        this.id= id;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -31,11 +31,11 @@ abstract class Funcionario {
     }
 
     // Verificação se o id é válido
-    public void setId (int Id) {
-        if(Id > 0 ) {
-            this.Id = Id;
+    public void setId (int id) {
+        if(id > 0 ) {
+            this.id = id;
         } else {
-            throw new IllegalArgumentException("ID inválido: " + Id);
+            throw new IllegalArgumentException("ID inválido: " + id);
         }
     }
     // Verificação se o nome é válido
@@ -100,7 +100,7 @@ abstract class Funcionario {
     }
     // Retorno id
     public int getId() {
-        return Id;
+        return id;
     }
     // Retorno Nome
     public String getNome(){
@@ -136,7 +136,21 @@ abstract class Funcionario {
     }
     // Classe abstrat para classes filhas aplicarem.
     public abstract double calcularSalario();
+    
+    public String toString(){
+        
+    return "ID: " + id +
+            "\nNome: " + nome +
+            "\nCPF: " + cpf +
+            "\nTelefone: " + telefone +
+            "\nEmail: " + email +
+            "\nCargo: " + cargo +
+            "\nSalário: " + salario +
+            "\nData de Admissão: " + dataAdmissao +
+            "\nAtivo: " + ativo;
 
+    }    
+    
     // Método de calculo de salário para classes filhas. 
     public void aumentarSalario(double valor) {
         if(valor > 0) {
