@@ -5,7 +5,7 @@ public class Desenvolvedor extends Funcionario {
     
     // Constructor Desenvolvedor
     public Desenvolvedor (int Id, String nome, String cpf, String telefone, 
-                         String email, String cargo, double salario, String dataAdmssao, 
+                         String email, String cargo, double salario, String dataAdmissao, 
                          boolean ativo, String linguagem, boolean manutencao) {
         
         super(Id,nome,cpf,telefone,email,cargo,salario,dataAdmssao,ativo);

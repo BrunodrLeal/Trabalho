@@ -61,88 +61,23 @@ public static void adicionarFuncionario (Scanner sc, ArrayList<Funcionario> func
     
     int id = proximoId++; // adiciona o id para o funcionario
     Funcionario novoFuncionario = null; // Objeto Null para referencia.
-    
-    System.out.println("Digite o nome completo: "); // registra o nome
-        String nome =  sc.nextLine();
-       
-    System.out.println("Digite o cpf completo: "); // registra o cpf 
-        String cpf =  sc.nextLine();
-    
-    System.out.println("Digite o telefone completo: "); // registra o telefone
-        String telefone =  sc.nextLine();
-    
-    System.out.println("Digite o email completo: "); // registra o email
-        String email =  sc.nextLine();
-    
-    /* A parte mais importante por que direcioa o funcionario 
-    para o cargo e cada um tem um cadastro diferente. 
-    As opções Gerente, desenvolvedor e vendedor. 
-    */
+
+     DadosBasicos dadosB = DadosBasicos.cadastroBasico(sc); // dados Basicos 
+
     System.out.println("Digite o cargo, opções: Gerente, Desenvolvedor ou Vendedor? ");
         
     String cargo =  sc.nextLine(); // pega o cargo definido acima, fora desses está incorreto.
         
         if (cargo.equalsIgnoreCase("Gerente")) { // opção Gerente.
             
-            /*  
-            Registra o salário do gerente
-            Podendo ter o registro livre caso um gerente tenha o salário diferente do anterior, 
-            peremitindo mais flexibilidade do projeto.
-            */
-            System.out.println("Digite o salário ref: Gerente: ");
-                double salario =  sc.nextDouble();
-                sc.nextLine(); // limpa o enter
+            Dados ativo = Dados.cadastroDados(sc, cargo);            
             
-            System.out.println("Data da admissão: "); // registra data de adimição
-                String dataAdmissao = sc.nextLine();
-            
-            System.out.println("Gerente ativo: (s) ou (n)");// Registra se Gerente está ativo ou não, outras opções são inválidadas
-                String ativoGerente = sc.nextLine();
+            CadastroGerente funcao = CadastroGerente.CadastroG(sc);
 
-                boolean ativo = false; // variavel boleana para registro do if posterior.
-                
-                if (ativoGerente.equalsIgnoreCase("s")) {
-                    ativo = true; 
-                
-                } else if (ativoGerente.equalsIgnoreCase("n")) {
-                    ativo = false;
-                
-                } else {
-                    System.out.println("Opção inválida! ");
-                }
-            
-            System.out.println("Poderá contratar: (s) ou (n)? "); // Registra se o Gerente deve contratar ou não.
-                String contrata = sc.nextLine();
-            
-                boolean contratar = false; // variavel boleana para registro do if posterior.
-
-                if (contrata.equalsIgnoreCase("s")) {
-                    contratar = true;
-                
-                } else if(contrata.equalsIgnoreCase("n")) {
-                    contratar = false;
-                
-                } else {
-                    System.out.println("Opção inválida! ");
-                }
-
-            System.out.println("Poderá Demitir: (s) ou (n)? "); // Registra se o Gerente deve demitir ou não.
-                String demite = sc.nextLine();
-
-                boolean demitir = false; // variavel boleana para registro do if posterior.
-
-                if (demite.equalsIgnoreCase("s")) {
-                    demitir = true;
-                
-                } else if(demite.equalsIgnoreCase("n")) {
-                    demitir = false;
-                
-                } else {
-                    System.out.println("Opção inválida!");
-                }
-
-            novoFuncionario = new Gerente(id, nome, cpf, telefone, email, cargo, salario, 
-                                          dataAdmissao, ativo, contratar, demitir); // Criação do objeto com todas as informações
+            novoFuncionario = new Gerente(id, dadosB.getNome(), dadosB.getCpf(), 
+                    dadosB.getTelefone(),dadosB.getEmail(), cargo, 
+                    ativo.getSalario(), ativo.getDataAdmissao(), ativo.getAtivo(), 
+                    funcao.getContratar(), funcao.getDemitir()); // Criação do objeto com todas as informações
 
             System.out.println("Gerente cadastrado com sucesso, seja bem vindo a Mattos Calçados! ");  //informa o fim do cadastro completo do Gerente.  
             
@@ -294,26 +229,34 @@ public static void calcularFolhaSalarial(ArrayList<Funcionario> funcionarios){
     totalFolha += f.getSalario();
     }
     }  
-public static boolean lerAtivo( Scanner sc) {
+public static String[] cadastroBasico1( Scanner sc ) {
+
+    System.out.println("Digite o nome completo: "); // registra o nome
+        String nome =  sc.nextLine();
+       
+    System.out.println("Digite o cpf completo: "); // registra o cpf 
+        String cpf =  sc.nextLine();
     
-    if(cargo.equalsIgnoreCase("Gerente")) {
-        System.out.println("Vendedor Ativo: (s) ou (n)? ");// Registra se vendedor está ativo ou não, outras opções são inválidadas
-                    String ativoFuncionario = sc.nextLine();
-                
-                boolean ativo = false; // variavel boleana para registro do if posterior.
-
-                    if (ativoFuncionario.equalsIgnoreCase("s")) {
-                        ativo = true; 
-                
-                    } else if (ativoFuncionario.equalsIgnoreCase("n")) {
-                        ativo = false;
-                
-                    } else {
-                        System.out.println("Opção inválida! ");
-                    } 
+    System.out.println("Digite o telefone completo: "); // registra o telefone
+        String telefone =  sc.nextLine();
+    
+    System.out.println("Digite o email completo: "); // registra o email
+        String email =  sc.nextLine();
+    
+        return new String[]{nome, cpf, telefone, email};
     }
-} 
-}
 
+public static String[] cadastroGerente( Scanner sc ){
+    
+    System.out.println("Digite o salário ref: Gerente" );
+        double salario =  sc.nextDouble();
+        sc.nextLine(); // limpa o enter
+            
+    System.out.println("Data da admissão: "); // registra data de adimição
+        String dataAdmissao = sc.nextLine();
+
+        return new String[] { salario, dataAdmissao };
+    }
+}
 
 
