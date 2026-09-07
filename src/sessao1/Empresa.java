@@ -1,7 +1,7 @@
 package sessao1;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+
 public class Empresa {
     
     private static int proximoId = 1;  // Atributo static para referencia no AdicionarFuncionario.
@@ -145,8 +145,7 @@ public static void removerFuncionario(Scanner sc, ArrayList<Funcionario> funcion
         System.out.println("Funcionario nao encontrado.");
     }
 }
-    
-}
+
 public static void buscarFuncionario(Scanner sc, ArrayList<Funcionario> funcionarios){
     
     System.out.println("Digite o nome do funcionario? ");
