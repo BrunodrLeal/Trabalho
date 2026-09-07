@@ -1,7 +1,7 @@
 package sessao1;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+
 public class Empresa {
     
     private static int proximoId = 1;  // Atributo static para referencia no AdicionarFuncionario.
@@ -113,7 +113,7 @@ public static void adicionarFuncionario (Scanner sc, ArrayList<Funcionario> func
             } else {
             
             System.out.println("Cargo inválido!");
-
+            
         }
         /*Chegando ao fim adicionando qual tipo de Funcionario seja ao ArrayLIst "funcionarios" usando o polimorfismo. */
         funcionarios.add(novoFuncionario); // adicionado ao Array
