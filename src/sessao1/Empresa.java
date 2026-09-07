@@ -145,8 +145,7 @@ public static void removerFuncionario(Scanner sc, ArrayList<Funcionario> funcion
         System.out.println("Funcionario nao encontrado.");
     }
 }
-    
-}
+
 public static void buscarFuncionario(Scanner sc, ArrayList<Funcionario> funcionarios){
     
     System.out.println("Digite o nome do funcionario? ");
@@ -179,16 +178,16 @@ public static void calcularFolhaSalarial(ArrayList<Funcionario> funcionarios){
     
     System.out.println("Sergue a lista de funcionarios e seus salarios.");
     
-    for(Funcionario f : funcionarios) {
-    System.out.println(f.getNome() + ": R$ " + f.getSalario());
+        for(Funcionario f : funcionarios) {
+        System.out.println(f.getNome() + ": R$ " + f.getSalario());
         
-    // Somando o salário atual ao total
-    totalFolha += f.getSalario();
+        // Somando o salário atual ao total
+        totalFolha += f.getSalario();
 
-    System.out.println(totalFolha);
+        System.out.println(totalFolha);
         }
     }  
-
 }
+
 
 
