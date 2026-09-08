@@ -19,28 +19,29 @@ public class Dados {
     public static Dados cadastroDados (Scanner sc,String cargo) {
         
         System.out.println("Digite o salário ref: "+ cargo); // Registra o salario
-                    double salario =  sc.nextDouble();
+            double salario =  sc.nextDouble();
                     sc.nextLine();// limpa o enter
 
-                System.out.println("Data da admissão: "); // Registra a data de admição
-                    String dataAdmissao = sc.nextLine();
+            System.out.println("Data de admissão (dd/MM/aaaa): ");
+                String dataAdmissao = sc.nextLine();
             
-                System.out.println(cargo + " Ativo: (s) ou (n)? ");// Registra se vendedor está ativo ou não, outras opções são inválidadas
-                    String ativoFuncionario = sc.nextLine();
+            System.out.println(cargo + " Ativo: (s) ou (n)? ");// Registra se vendedor está ativo ou não, outras opções são inválidadas
+                String ativoFuncionario = sc.nextLine();
                 
-                boolean ativo = false; // variavel boleana para registro do if posterior.
+            boolean ativo = false; // variavel boleana para registro do if posterior.
 
-                    if (ativoFuncionario.equalsIgnoreCase("s")) {
-                        ativo = true; 
+                if (ativoFuncionario.equalsIgnoreCase("s")) {
+                    ativo = true; 
                 
-                    } else if (ativoFuncionario.equalsIgnoreCase("n")) {
-                        ativo = false;
+                } else if (ativoFuncionario.equalsIgnoreCase("n")) {
+                    ativo = false;
                 
-                    } else {
-                        System.out.println("Opção inválida! ");
-                    } 
+                } else {
+                    System.out.println("Opção inválida! ");
+                } 
         return new Dados(salario,dataAdmissao,ativo);
     }
+    // Getters para retorno.
     public double getSalario() { return salario; }
     public String getDataAdmissao() { return dataAdmissao; }
     public boolean getAtivo() { return ativo; }
