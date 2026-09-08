@@ -57,7 +57,9 @@ public class Empresa {
         }
     }
 
-public static void adicionarFuncionario (Scanner sc, ArrayList<Funcionario> funcionarios) { // metodo de cadastro completo do Funcionario independente do Tipo.
+public static void adicionarFuncionario (
+    Scanner sc, 
+    ArrayList<Funcionario> funcionarios) { // metodo de cadastro completo do Funcionario independente do Tipo.
     
     int id = proximoId++; // adiciona o id para o funcionario
     Funcionario novoFuncionario = null; // Objeto Null para referencia.
@@ -116,76 +118,73 @@ public static void adicionarFuncionario (Scanner sc, ArrayList<Funcionario> func
             
         }
         /*Chegando ao fim adicionando qual tipo de Funcionario seja ao ArrayLIst "funcionarios" usando o polimorfismo. */
-        funcionarios.add(novoFuncionario); // adicionado ao Array
-    }
+        if (novoFuncionario != null) {
+        funcionarios.add(novoFuncionario);   // adicionado ao Array
+}       
 
         
-public static void removerFuncionario(Scanner sc, ArrayList<Funcionario> funcionarios){
-    
-    System.out.println("Digite o ID do funcionário para o desligamento? ");
-        int nomeFuncionario = sc.nextInt();
-        sc.nextLine();// limpa o enter
-
-    Funcionario funcionarioParaRemover = null;
-
-    for (Funcionario f : funcionarios) {
-    
-        // 1 Pegando o nome do funcionário e usando equalsIgnoreCase 
-            System.out.println("Id encontrado: " + f.getId() + " Nome: " + f.getNome());
-
-            funcionarios.remove(funcionarioParaRemover); // Guarda o objeto encontrado
-            break; // Para o laço imediatamente
     }
-    // 2. Corrigido: Remove fora do laço for-each para não dar erro no Java
-    if (funcionarioParaRemover != null) {
+        
+public static void removerFuncionario(
+    Scanner sc, 
+    ArrayList<Funcionario> funcionarios){
     
-        funcionarios.remove(funcionarioParaRemover); // Remove o objeto Funcionario
-        System.out.println("Funcionario removido com sucesso.");
+    Funcionario funcionario = BuscarFuncionario.Consulta(sc,funcionarios);
+
+    if (funcionario != null) {
+        funcionarios.remove(funcionario);
+        System.out.println("Funcionário removido com sucesso!");
     } else {
-        System.out.println("Funcionario nao encontrado.");
+        System.out.println("Funcionário não encontrado.");
     }
 }
 
-public static void buscarFuncionario(Scanner sc, ArrayList<Funcionario> funcionarios){
+public static void buscarFuncionario(
+    Scanner sc, 
+    ArrayList<Funcionario> funcionarios) {
     
-    System.out.println("Digite o nome do funcionario? ");
-    String nomeFuncionario = sc.nextLine();
+    Funcionario funcionario = BuscarFuncionario.Consulta(sc,funcionarios);
 
-    for (Funcionario f : funcionarios) {
-        if (f.getNome().equalsIgnoreCase(nomeFuncionario)) { 
-            System.out.println("Funcionário encontrado: "+ f.getNome() + " cpf: " + f.getCpf());
-
-        break; // Para o laço imediatamente
-        } 
-        else if (f == null) {
-            throw new NullPointerException("Não temos funcionarios ativos no momento");
-        
-        } else {
-            System.out.println("Funcionário não encontrado.");
-        } 
+        if (funcionario != null) {
+        System.out.println(
+            "Funcionário encontrado: "
+            + funcionario.getNome()
+            + " CPF: "
+            + funcionario.getCpf()
+        );
+    } else {
+        System.out.println("Funcionário não encontrado.");
     }
 }
-public static void listarFuncionario(ArrayList<Funcionario> funcionarios){
+
+public static void listarFuncionario(
+    ArrayList<Funcionario> funcionarios){
     
     for (Funcionario funcionario : funcionarios) {
         System.out.println(funcionario);
         System.out.println("----------------------------");
     }
 }
-public static void calcularFolhaSalarial(ArrayList<Funcionario> funcionarios){
+public static void calcularFolhaSalarial(
+    ArrayList<Funcionario> funcionarios){
     
     double totalFolha = 0.0;
+
+    for(Funcionario f : funcionarios) {
     
     System.out.println("Sergue a lista de funcionarios e seus salarios.");
     
-        for(Funcionario f : funcionarios) {
-        System.out.println(f.getNome() + ": R$ " + f.getSalario());
+    double salarioCalculado = f.calcularSalario();  
+
+        System.out.println(
+            f.getNome() + ": R$ " + salarioCalculado
+        );
         
         // Somando o salário atual ao total
         totalFolha += f.getSalario();
-
-        System.out.println(totalFolha);
-        }
+    }
+    System.out.println("-------------------------");
+    System.out.println("Total da folha: R$ " + totalFolha);
     }  
 }
 

@@ -13,8 +13,8 @@ public class Vendedor extends Funcionario {
         
         super(id,nome,cpf,telefone,email,cargo,salario,dataAdmissao,ativo);
 
-        this.metaVendas = metaVendas;
-        this.percentualComissao = percentualComissao;
+        setMetaVendas(metaVendas);
+        setPercentualComissao(percentualComissao);
     }
     // Método @Override Obrigatório.
     @Override

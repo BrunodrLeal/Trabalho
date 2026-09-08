@@ -1,12 +1,10 @@
 package sessao1;
 
-
-
 //Classe Abstrata - Classe Pai
 abstract class Funcionario {
 
     // Atributos básicos de um funcionario. 
-    private static int id = 1;
+    private int id = 1;
     private String nome;
     private String cpf;
     private String telefone;
@@ -18,16 +16,18 @@ abstract class Funcionario {
 
     // constructor com todas as funções para as classes filhas
     public Funcionario(int id, String nome, String cpf, String telefone, 
-    String email, String cargo, double salario, String dataAdmissao, boolean ativo){
-        this.id= id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.email = email;
-        this.cargo =  cargo;
-        this.salario = salario;
-        this.dataAdmissao = dataAdmissao;
-        this.ativo = ativo;
+                       String email, String cargo, double salario, 
+                       String dataAdmissao, boolean ativo){
+        
+        setId(id);
+        setNome(nome);
+        setCpf(cpf);
+        setTelefone(telefone);
+        setEmail(email);
+        setCargo(cargo);
+        setSalario(salario);
+        setDataAdmissao(dataAdmissao);
+        setAtivo(ativo);
     }
 
     // Verificação se o id é válido
@@ -83,7 +83,7 @@ abstract class Funcionario {
         if(salario >= 1){
             this.salario = salario;
         } else {
-            throw new IllegalArgumentException("Sal´[ario inválido: "+ salario);
+            throw new IllegalArgumentException("Salário inválido: "+ salario);
         }
     }
     // Verificação se a data de admição é válida
@@ -92,11 +92,7 @@ abstract class Funcionario {
      } 
     // Verificação se o funcionario está ativo
     public void setAtivo(boolean ativo){
-        if(ativo = true){
-            this.ativo = ativo;
-        } else{
-            throw new IllegalArgumentException("Funcionario desligado: " + ativo);
-        }
+        this.ativo = ativo;
     }
     // Retorno id
     public int getId() {

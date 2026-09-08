@@ -11,8 +11,8 @@ public class Desenvolvedor extends Funcionario {
         
         super(id,nome,cpf,telefone,email,cargo,salario,dataAdmissao,ativo);
 
-        this.linguagem = linguagem;
-        this.manutencao = manutencao;
+        setLinguagem(linguagem);
+        setManutencao(manutencao);
     }
     // Método @Override Obrigatório.
     @Override

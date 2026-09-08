@@ -11,8 +11,8 @@ public  class Gerente extends Funcionario {
         
         super(id,nome,cpf,telefone,email,cargo,salario,dataAdmissao,ativo);
         
-        this.contratar = contratar;
-        this.demitir = demitir;
+        setContratar(contratar);
+        setDemitir(demitir);
     }
     // Método @Override Obrigatório.
     @Override
