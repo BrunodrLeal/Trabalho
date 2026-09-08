@@ -1,75 +1,29 @@
 package sessao1;
 
-//Classe Abstrata - Classe Pai
-abstract class Funcionario {
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
-    // Atributos básicos de um funcionario. 
-    private int id = 1;
-    private String nome;
-    private String cpf;
-    private String telefone;
-    private String email;
+abstract  class Funcionario extends Pessoa{
+    
     private String cargo;
     private double salario;
-    private String dataAdmissao;
+    private LocalDate dataAdmissao;
     private boolean ativo;
 
-    // constructor com todas as funções para as classes filhas
-    public Funcionario(int id, String nome, String cpf, String telefone, 
-                       String email, String cargo, double salario, 
-                       String dataAdmissao, boolean ativo){
+    public Funcionario (int id, String nome, String cpf, 
+                        String telefone, String email,String cargo, 
+                        double salario, String dataAdmissao, boolean ativo) {
+
+        super(id,nome,cpf,telefone,email);
         
-        setId(id);
-        setNome(nome);
-        setCpf(cpf);
-        setTelefone(telefone);
-        setEmail(email);
         setCargo(cargo);
         setSalario(salario);
         setDataAdmissao(dataAdmissao);
         setAtivo(ativo);
     }
 
-    // Verificação se o id é válido
-    public void setId (int id) {
-        if(id > 0 ) {
-            this.id = id;
-        } else {
-            throw new IllegalArgumentException("ID inválido: " + id);
-        }
-    }
-    // Verificação se o nome é válido
-    public void setNome (String nome){
-        if(nome != null && !nome.isEmpty()&& nome.length() >= 3){
-            this.nome = nome;
-        } else {
-            throw new IllegalArgumentException("Nome inválido: "+ nome);
-        }
-    }
-    // Verificação se o cpf é válido
-    public void setCpf (String cpf) {
-        if (cpf != null && cpf.replaceAll("\\D", "").length() == 11){
-            this.cpf = cpf;
-        } else {
-            throw new IllegalArgumentException("CPF inválido!"+ cpf);
-        }
-    }
-    // Verificação se o telefone é válido
-    public void setTelefone (String telefone) {
-        if(telefone != null && telefone.replaceAll("\\D", "").length() >= 10){
-            this.telefone = telefone;
-        } else {
-            System.out.println("Telefone inválido: "+ telefone);
-        }
-    }
-    // Verificação se o email é válido
-    public void setEmail (String email) {
-        if(email != null && email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")){
-            this.email = email;
-        } else {
-            throw new IllegalArgumentException("E-mail inválido!"+ email);
-        }
-    }
     // Verificação se o cargo é válido
     public void setCargo (String cargo) {
         if(cargo != null && !cargo.isEmpty()&& cargo.length() >= 3){
@@ -87,34 +41,34 @@ abstract class Funcionario {
         }
     }
     // Verificação se a data de admição é válida
-    public void setDataAdmissao (String dataAdmissao) {
-        this.dataAdmissao = dataAdmissao;   
-     } 
+    public void setDataAdmissao(String dataAdmissao) { // Essa função tive uma ajuda da IA para entender pois não tinha estudando essas funções
+    try {
+        DateTimeFormatter formato = DateTimeFormatter
+            .ofPattern("dd/MM/uuuu")
+            .withResolverStyle(ResolverStyle.STRICT);
+
+        LocalDate data = LocalDate.parse(dataAdmissao.trim(), formato);
+
+        if (data.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException(
+                "A data de admissão não pode estar no futuro."
+            );
+        }
+
+        this.dataAdmissao = data;
+
+    } catch (DateTimeParseException e) {
+        throw new IllegalArgumentException(
+            "Data inválida. Use o formato dd/MM/aaaa."
+            );
+        }
+    } 
     // Verificação se o funcionario está ativo
     public void setAtivo(boolean ativo){
         this.ativo = ativo;
     }
-    // Retorno id
-    public int getId() {
-        return id;
-    }
-    // Retorno Nome
-    public String getNome(){
-        return nome;
-    }
-    // Retorno cpf
-    public String getCpf() {
-        return cpf;
-    }
-    // Retorno Telefone
-    public String getTelefone(){
-        return telefone;
-    }
-    // Retorno Email
-    public String getEmail() {
-        return email;
-    }
-    // Retorno Cargo
+
+     // Retorno Cargo
     public String getCargo() {
         return cargo;
     }
@@ -123,30 +77,14 @@ abstract class Funcionario {
         return salario;
     }
     // Retorno Data de admição
-    public String getDataAdmissao() {
+    public LocalDate getDataAdmissao() { // modificação para verificação correta da data de admissão
         return dataAdmissao;
     }
     // Retorno Ativo
     public boolean getAtivo() {
         return ativo;
     }
-    // Classe abstrat para classes filhas aplicarem.
-    public abstract double calcularSalario();
-    
-    public String toString(){
-        
-    return "ID: " + id +
-            "\nNome: " + nome +
-            "\nCPF: " + cpf +
-            "\nTelefone: " + telefone +
-            "\nEmail: " + email +
-            "\nCargo: " + cargo +
-            "\nSalário: " + salario +
-            "\nData de Admissão: " + dataAdmissao +
-            "\nAtivo: " + ativo;
 
-    }    
-    
     // Método de calculo de salário para classes filhas. 
     public void aumentarSalario(double valor) {
         if(valor > 0) {
@@ -156,4 +94,14 @@ abstract class Funcionario {
             System.out.println("Aumento invalidado.");
         }
     }
+    @Override 
+    public String toString(){
+        return super.toString() +
+        "\nCargo: " + cargo +
+            "\nSalário: " + salario +
+            "\nData de Admissão: " + dataAdmissao +
+            "\nAtivo: " + ativo;
 }
+}
+
+

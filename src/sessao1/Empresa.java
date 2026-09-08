@@ -76,12 +76,19 @@ public static void adicionarFuncionario (
             
             CadastroGerente funcaoG = CadastroGerente.CadastroG(sc);
 
-            novoFuncionario = new Gerente(
+            try {
+
+                novoFuncionario = new Gerente(
                 id,                                                                                     // id gera automático
                 dadosB.getNome(), dadosB.getCpf(), dadosB.getTelefone(),dadosB.getEmail(),              // dados basicos
                 cargo,                                                                                  //Cargo escolhidos pelo usuário antes do if. 
                 ativoG.getSalario(), ativoG.getDataAdmissao(), ativoG.getAtivo(),                       // Situação salarial, data de inicio e atividade.
-                funcaoG.getContratar(), funcaoG.getDemitir());                                          // Funções adquiridas pelo cargo.     
+                funcaoG.getContratar(), funcaoG.getDemitir()); 
+                                                         // Funções adquiridas pelo cargo. 
+            } catch (IllegalArgumentException e) {
+                
+                System.out.println("Cadastro não realizado: " + e.getMessage());
+            }
 
             System.out.println("Gerente cadastrado com sucesso, seja bem vindo a Mattos Calçados! ");  //informa o fim do cadastro completo do Gerente.  
             
@@ -90,14 +97,21 @@ public static void adicionarFuncionario (
             Dados ativoD = Dados.cadastroDados(sc, cargo);
 
             CadastroDesenvolvedor funcaD = CadastroDesenvolvedor.CadastroD(sc);
+            
+            try {
 
-            novoFuncionario = new Desenvolvedor(            
+                novoFuncionario = new Desenvolvedor(            
                 id,                                                                                      // id gera automático
                 dadosB.getNome(), dadosB.getCpf(),dadosB.getTelefone(),dadosB.getEmail(),                // dados basicos
                 cargo,                                                                                   //Cargo escolhidos pelo usuário antes do if.
                 ativoD.getSalario(),ativoD.getDataAdmissao(),ativoD.getAtivo(),                          // Situação salarial, data de inicio e atividade.
                 funcaD.getLinguagem(),funcaD.getManutencao());                                           // Funções adquiridas pelo cargo.             
 
+            } catch (IllegalArgumentException e) {
+
+                System.out.println("Cadastro não realizado: " + e.getMessage());
+            }
+            
                 System.out.println("Desenvolvedor cadastrado com sucesso, seja bem vindo a Mattos Calçados! "); //informa o fim do cadastro completo do Desenvolvedor.
         
             } else if (cargo.equalsIgnoreCase("Vendedor")) {
@@ -105,25 +119,30 @@ public static void adicionarFuncionario (
                 Dados ativoV = Dados.cadastroDados(sc, cargo);
                 
                 CadastroVendedor funcaoV = CadastroVendedor.cadastroV(sc);
-            novoFuncionario = new Vendedor(
+
+                try {
+                
+                novoFuncionario = new Vendedor(
                 id,                                                                                      // id gera automático
                 dadosB.getNome(), dadosB.getCpf(),dadosB.getTelefone(),dadosB.getEmail(),                // dados basicos   
                 cargo,                                                                                   //Cargo escolhidos pelo usuário antes do if.
                 ativoV.getSalario(),ativoV.getDataAdmissao(),ativoV.getAtivo(),                          // Situação salarial, data de inicio e atividade.
-                funcaoV.getMetaComissao(),funcaoV.getPercentualComissao());                                                          // Funções adquiridas pelo cargo.     
-        
+                funcaoV.getMetaComissao(),funcaoV.getPercentualComissao());                              // Funções adquiridas pelo cargo.     
+                
+                } catch (IllegalArgumentException e) {
+
+                    System.out.println("Cadastro não realizado: " + e.getMessage());
+                }
+            
             } else {
             
-            System.out.println("Cargo inválido!");
-            
+            System.out.println("Cargo inválido!"); 
         }
         /*Chegando ao fim adicionando qual tipo de Funcionario seja ao ArrayLIst "funcionarios" usando o polimorfismo. */
         if (novoFuncionario != null) {
         funcionarios.add(novoFuncionario);   // adicionado ao Array
-}       
-
-        
-    }
+    }       
+}
         
 public static void removerFuncionario(
     Scanner sc, 

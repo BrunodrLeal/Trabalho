@@ -11,15 +11,15 @@ public class BuscarFuncionario {
         this.id = id;
     }
 
-    public static Funcionario Consulta(
+    public static Pessoa Consulta(
         Scanner sc,
-        ArrayList<Funcionario> funcionarios) {
+        ArrayList<Pessoa> funcionarios) {
 
     System.out.println("Digite o id do Funcionario:");
     int id = sc.nextInt();
     sc.nextLine();
 
-    for (Funcionario f : funcionarios) {
+    for (Pessoa f : funcionarios) {
 
         if (f.getId() == id) {
             System.out.println(
