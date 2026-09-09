@@ -1,58 +1,101 @@
-# Sistema de Cadastro de Funcionários — Mattos Calçados
+Modelar pessoas, funcionários e clientes, aplicando regras de validação e organizando o código para que novas funcionalidades possam ser incluídas sem duplicar informações.
 
-Projeto desenvolvido em **Java** para praticar conceitos de Programação Orientada a Objetos (POO), como encapsulamento, herança, abstração e polimorfismo.
+## Estrutura de classes
 
-## Ampliação do Projeto
+```text
+Pessoa
+├── Funcionario (abstrata)
+│   ├── Gerente
+│   ├── Vendedor
+│   └── Desenvolvedor
+└── Cliente
+```
 
-Nesta nova etapa, a classe abstrata `Funcionario` foi ampliada para representar um cadastro mais completo dos colaboradores da empresa.
+### Pessoa
 
-Foram adicionados os seguintes atributos:
+`Pessoa` é a classe base, com dados compartilhados por funcionários e clientes:
 
-* `id` — identificador único do funcionário.
-* `nome` — nome completo.
-* `cpf` — documento de identificação.
-* `telefone` — telefone para contato.
-* `email` — endereço de e-mail.
-* `cargo` — função exercida na empresa.
-* `salario` — salário do funcionário.
-* `dataAdmissao` — data de admissão.
-* `ativo` — indica se o funcionário está ativo na empresa.
+- `id`
+- `nome`
+- `cpf`
+- `telefone`
+- `email`
 
-## Estrutura Atual
+Os dados são validados nos setters chamados pelo construtor. O telefone é armazenado somente com dígitos e o e-mail deve ter um formato válido.
 
-A classe `Funcionario` continua sendo uma **classe abstrata**, servindo como base para os diferentes tipos de funcionários do sistema.
+### Funcionário
 
-As classes especializadas continuam utilizando **herança e sobrescrita de métodos**, permitindo que cada tipo de funcionário possua suas próprias regras de cálculo salarial.
+`Funcionario` é uma classe abstrata que representa características exclusivas de colaboradores:
 
-O projeto também utiliza `ArrayList<Funcionario>` para armazenar diferentes tipos de funcionários em uma mesma coleção, reforçando o conceito de **polimorfismo**.
+- `cargo`
+- `salario`
+- `dataAdmissao` (`LocalDate`)
+- `ativo`
 
-## Conceitos Praticados
+Cada tipo de funcionário implementa `calcularSalario()`, demonstrando polimorfismo:
 
-* Classes e objetos
-* Encapsulamento
-* Atributos `private`
-* Getters e setters
-* Construtores
-* Classe abstrata
-* Métodos abstratos
-* Herança
-* Polimorfismo
-* Sobrescrita com `@Override`
-* `ArrayList`
-* Estruturas condicionais
-* `switch`
-* Laços de repetição
-* Entrada de dados com `Scanner`
+- `Gerente`: acréscimo de 20% ao salário base.
+- `Desenvolvedor`: acréscimo de 10% ao salário base.
+- `Vendedor`: salário base acrescido de comissão sobre a meta de vendas.
 
-## Objetivo
+### Cliente
 
-O objetivo desta etapa é evoluir o sistema de um cadastro básico de funcionários para uma estrutura mais próxima de um **sistema real de gestão de colaboradores**, aumentando a quantidade de informações armazenadas e preparando o projeto para novas funcionalidades.
+A classe `Cliente` herda os dados básicos de `Pessoa` e inicia o cadastro de consumidores da loja. Atualmente possui:
 
-## Próximas Etapas
+- `limiteCredito`
+- `pontosFidelidade`
 
-* Implementar validações dos novos atributos.
-* Criar e aprimorar os métodos de cadastro, busca, alteração e remoção.
-* Controlar funcionários ativos e inativos.
-* Melhorar a apresentação dos dados.
-* Evoluir as regras de cálculo salarial.
-* Continuar aplicando os conceitos de POO no projeto.
+O cadastro de clientes e as opções correspondentes do menu ainda estão em desenvolvimento.
+
+## Funcionalidades atuais
+
+- Cadastro de gerente, desenvolvedor e vendedor.
+- Geração sequencial de IDs pela classe `Empresa`.
+- Validação de nome, CPF, telefone, e-mail, cargo, salário e data de admissão.
+- Busca e remoção de funcionário por ID.
+- Listagem de funcionários cadastrados.
+- Cálculo da folha salarial usando `calcularSalario()`.
+- Tratamento de `IllegalArgumentException` durante o cadastro para informar dados inválidos sem encerrar o programa.
+
+## Classes auxiliares
+
+| Classe | Responsabilidade |
+| --- | --- |
+| `Empresa` | Possui o método `main`, os menus e as operações sobre funcionários. |
+| `DadosBasicos` | Lê nome, CPF, telefone e e-mail pelo `Scanner`. |
+| `Dados` | Lê salário, data de admissão e situação de atividade. |
+| `CadastroGerente` | Lê permissões de contratar e demitir. |
+| `CadastroVendedor` | Lê meta de vendas e percentual de comissão. |
+| `CadastroDesenvolvedor` | Lê linguagem e informação de manutenção. |
+| `BuscarFuncionario` | Procura um funcionário pelo ID informado. |
+
+## Tecnologias e conceitos praticados
+
+- Java
+- Classes, objetos, construtores e encapsulamento
+- Herança e classes abstratas
+- Polimorfismo e sobrescrita com `@Override`
+- Getters, setters e validações
+- `ArrayList`
+- `Scanner` para entrada de dados
+- `switch`, condicionais e laços de repetição
+- Exceções com `try`, `catch` e `IllegalArgumentException`
+- Datas com `LocalDate` e `DateTimeFormatter`
+
+## Como executar
+
+Com o JDK instalado, execute na pasta raiz do projeto:
+
+```powershell
+javac -encoding UTF-8 -d out src\sessao1\*.java
+java -cp out sessao1.Empresa
+```
+
+## Próximas etapas
+
+1. Finalizar o menu e o cadastro de clientes.
+2. Criar busca, listagem e remoção de clientes.
+3. Criar a classe `Venda`, relacionando cliente, vendedor, itens e valor total.
+4. Criar classes para produto e item de venda.
+5. Melhorar a apresentação dos valores monetários e validar as entradas do `Scanner`.
+6. Criar testes automatizados para as regras de validação e cálculo salarial.
